@@ -6,35 +6,6 @@ use App\Response;
 
 class AdminRepository implements AdminRepositoryInterface
 {
-    public function display()
-    {
-        return $admin = Admin::all();
-    }
-
-    public function view($id)
-    {
-        return Admin::where('id', $id)->first();
-
-    }
-
-    public function delete($id)
-    {
-        Admin::where('id', $id)->delete();
-        return response()->json([
-            'message' => 'Admin profile deleted'
-        ]);
-    }
-    public function update($request, $id)
-    {
-        $data = $request->all();
-        $admin = Admin::where('id', $id)->first();
-        $admin->name = $data['name'];
-        $admin->email = $data['email'];
-        $admin->password = $data['password'];
-        $admin->save();
-    }
-
-
     public function register($request)
     {
         $data = $request->all();
@@ -103,5 +74,4 @@ class AdminRepository implements AdminRepositoryInterface
     public function createNewToken($token)
     {
     }
-    
 }

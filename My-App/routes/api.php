@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
     return $request->admin();
 }); */
 
-//////// admin
-
-
 ///////categories
+
+
+
 Route::get('category', 'CategoryController@index');
 Route::get('category/{id}', 'CategoryController@show');
-
+Route::get('category/{itemId}', 'CategoryController@displayItems');
 // /////messages branch
 
 Route::post('messages', 'MessageController@store');
@@ -36,30 +36,21 @@ Route::post('messages', 'MessageController@store');
 
 Route::get('/item', 'ItemController@index');
 Route::get('/item/{id}', 'ItemController@show');
+////
+Route::get('/testimonial', 'TestimonialController@index');
+Route::get('/testimonial/{id}', 'TestimonialController@show');
 
 //////////// admin routes
-Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
-{
+Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']], function () {
     Route::post('register', 'AdminController@register');
     Route::post('login', 'AdminController@login');
-
-    
 });
 
 
-Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.auth']],function ()
-{
+Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.auth']], function () {
     Route::post('logout', 'AdminController@logout');
     Route::post('refresh', 'AdminController@refresh');
     Route::get('profile', 'AdminController@profile');
-    Route::post('/verify','AdminController@verifytokens');
-    Route::delete('/{id}', 'AdminController@destroy');
-    Route::post('/{id}', 'AdminsController@update');
-    Route::get('/show', 'AdminController@index');
-    /* Route::get('admin/{id}', 'AdminController@show'); */
-    
-
-   ////////////////
     Route::delete('messages/{id}', 'MessageController@destroy');
 
     //////////////
@@ -84,18 +75,16 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::get('/order/{id}', 'OrderController@show');
     Route::put('/order/{id}', 'OrderController@update');
     Route::delete('/order/{id}', 'OrderController@destroy');
-   //////////////
-   Route::get('messages', 'MessageController@index');
-   Route::get('messages/{id}', 'MessageController@show');
-
+    //////////////
+    Route::get('messages', 'MessageController@index');
+    Route::get('messages/{id}', 'MessageController@show');
 });
 
 
 ///////// user routes
 
 
-Route::group(['prefix' => 'user','middleware' => ['assign.guard:api']],function ()
-{
+Route::group(['prefix' => 'user','middleware' => ['assign.guard:api']], function () {
     Route::post('register', 'JWTAuthController@register');
     Route::post('login', 'JWTAuthController@login');
 });
@@ -103,9 +92,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api']],function 
 
 
 
-Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']],function ()
-{
-
+Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']], function () {
     Route::post('logout', 'JWTAuthController@logout');
     Route::post('refresh', 'JWTAuthController@refresh');
     Route::get('profile', 'JWTAuthController@profile');
@@ -114,6 +101,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::get('/order', 'OrderController@index');
     Route::post('/order', 'OrderController@store');
     Route::get('/order/{id}', 'OrderController@show');
+    Route::get('/orders/{id}', 'JWTAuthController@displayOrder');
     
     ///////////////
     Route::get('/orderItem', 'OrderItemController@index');
@@ -122,18 +110,18 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::put('/orderItem/{id}', 'OrderItemController@update');
     Route::delete('/orderItem/{id}', 'OrderItemController@destroy');
 
-     ///////////////
-     Route::get('/cart', 'CartController@index');
-     Route::get('/cart/{id}', 'CartController@show');
+    ///////////////
+    Route::get('/cart', 'CartController@index');
+    Route::get('/cart/{id}', 'CartController@show');
      
-     ///////////////
-     Route::get('/cartItem', 'CartItemController@index');
-     Route::post('/cartItem', 'CartController@store');
-     Route::get('/cartItem/{id}', 'CartController@show');
+    ///////////////
+    Route::get('/cartItem', 'CartItemController@index');
+    Route::post('/cartItem', 'CartController@store');
+    Route::get('/cartItem/{id}', 'CartController@show');
     //  Route::put('/cartItem/{id}', 'CartController@update');
-     Route::delete('/cartItem/{id}', 'CartController@destroy');
-
+    Route::delete('/cartItem/{id}', 'CartController@destroy');
+    ///
+    Route::post('/testimonial', 'TestimonialController@store');
+    Route::put('/testimonial/{id}', 'TestimonialController@update');
+    Route::delete('/testimonial/{id}', 'TestimonialController@destroy');
 });
-
-
-

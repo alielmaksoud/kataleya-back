@@ -9,7 +9,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function display()
     {
         $id = auth()->user()->id;
-        return $orders = Order::where('user_id',$id)->get();
+        return $orders = Order::where('user_id', $id)->get();
     }
  
     public function view($id)
@@ -31,7 +31,6 @@ class OrderRepository implements OrderRepositoryInterface
                     'user_id'=>$id,
                     'address'=>$data['address'],
                 ]);
-        
     }
     public function update($request, $id)
     {

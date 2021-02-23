@@ -27,42 +27,7 @@ class AdminController extends Controller
         $this->middleware('auth:admin', ['except' => ['login', 'register']]);
     }
 
-   /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $admin=$this->adminRepository->display();
-        return response()->json($admin);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $admin=$this->adminRepository->view($id);
-        return response()->json($admin);
-    }
-
-     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $admin=$this->adminRepository->delete($id);
-        return response()->json([
-            'message' => ' Admin deleted'
-        ]);
-    }
+   
 
     /**
      * Register a admin.
@@ -95,26 +60,6 @@ class AdminController extends Controller
     ],401);
     }
      
-
-     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(AdminRequest $request, $id)
-    {
-        $validator=$request->validated();
-
-
-        if ($validator) {
-            $admin=$this->adminRepository->update($request, $id);
-            
-
-            return response()->json(['status' => 200, 'admin' => $admin]);
-        }
-    }
 
     /**
      * Get a JWT via given credentials.
@@ -180,10 +125,5 @@ class AdminController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
-    }
-
-    public function verifytokens()
-    {
-        return response()->json(['message' => 'Verified']);
     }
 }

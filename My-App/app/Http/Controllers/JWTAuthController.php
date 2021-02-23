@@ -12,7 +12,6 @@ use App\Http\Requests\UserLoginRequest;
 use App\Response;
 use App\User;
 
-
 class JWTAuthController extends Controller
 {
     /**
@@ -94,6 +93,10 @@ class JWTAuthController extends Controller
     public function refresh()
     {
         return $this->createNewToken(auth()->refresh());
+    }
+    public function displayOrder($orderId)
+    {
+        return $user=$this->userRepository->displayOrder($orderId);
     }
 
     /**

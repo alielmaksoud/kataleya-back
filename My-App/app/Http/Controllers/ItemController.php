@@ -55,8 +55,8 @@ class ItemController extends Controller
             $item=$this->itemRepository->create($request);
 
             return response()->json([
-                    'message' => 'Category Added',
-                    'category' => $item
+                    'message' => 'Item Added',
+                    'item' => $item
                 ]);
         }
     }

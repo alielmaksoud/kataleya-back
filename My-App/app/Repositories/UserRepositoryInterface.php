@@ -11,5 +11,6 @@ interface UserRepositoryInterface
     public function logout();
     public function profile();
     public function refresh();
+    public function displayOrder($orderId);
     public function createNewToken($token);
 }

@@ -28,7 +28,7 @@ class CategoryRequest extends FormRequest
             'description' => 'required|max:500',
             'price'=>'required|numeric',
             'offer_price'=>'required|numeric',
-            'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'bottle_size'=>'required|numeric',
             'category_id'=>'required|integer',
@@ -43,7 +43,7 @@ class CategoryRequest extends FormRequest
             'name.min:3'=>'Name cannot be less than three letters',
             'name.max:255'=>"Exceeded space allowed",
 
-            'description.required' => 'Quantity is required!',
+            'description.required' => 'Description is required!',
             'description.max:500'=>'Exceeded space allowed',
 
             'price.required' => 'Price is required!',
@@ -53,7 +53,7 @@ class CategoryRequest extends FormRequest
             'offer_price.numeric' => 'Offer Price should be a number!',
 
             'image.required' => 'Image is required!',
-            'price.mimes:jpeg,png,jpg,gif,svg|max:2048' => 'Imageshould be in the right format!',
+            'price.mimes:jpeg,png,jpg,gif,svg|max:2048' => 'Image should be in the right format!',
 
             'bottle_size.required'=>'Bottle size is required',
             'bottle_size.numeric' => 'Bottle Size should be a number!',

@@ -37,24 +37,27 @@ Route::post('messages', 'MessageController@store');
 Route::get('/item', 'ItemController@index');
 Route::get('/item/{id}', 'ItemController@show');
 
-//////////// admin routes
-Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
+// ////////// admin routes
+// Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
+// {
+//     Route::post('register', 'AdminController@register');
+//     Route::post('login', 'AdminController@login');
+
+    
+// });
+
+Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.auth']],function ()
+
 {
     Route::post('register', 'AdminController@register');
     Route::post('login', 'AdminController@login');
 
-    
-});
-
-
-Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.auth']],function ()
-{
     Route::post('logout', 'AdminController@logout');
     Route::post('refresh', 'AdminController@refresh');
     Route::get('profile', 'AdminController@profile');
     Route::post('/verify','AdminController@verifytokens');
     Route::delete('/{id}', 'AdminController@destroy');
-    Route::post('/{id}', 'AdminsController@update');
+    Route::put('/{id}', 'AdminController@update');
     Route::get('/show', 'AdminController@index');
     ////user
     Route::get('/user/show', 'AdminController@indexuser');
@@ -69,16 +72,12 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::put('/item/{id}', 'ItemController@update');
     Route::delete('/item/{id}', 'ItemController@destroy');
 
-    ///////////////////
-   
-    Route::post('/feature', 'FeatureController@store');
-    Route::put('/feature/{id}', 'FeatureController@update');
-    Route::delete('/feature/{id}', 'FeatureController@destroy');
+
     ////////////
     
     Route::post('category', 'CategoryController@store');
-    Route::put('category/{id}', 'CategoryController@update');
-    Route::delete('category/{id}', 'CategoryController@destroy');
+    Route::put('/category/{id}', 'CategoryController@update');
+    Route::delete('/category/{id}', 'CategoryController@destroy');
 
     ///////////// /Route::get('/order', 'OrderController@index');
     Route::get('/order', 'OrderController@index');
@@ -112,7 +111,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::post('refresh', 'JWTAuthController@refresh');
     Route::get('profile', 'JWTAuthController@profile');
     Route::delete('/{id}', 'JWTAuthController@destroy');
-    Route::post('/{id}', 'JWTAuthController@update');
+    Route::put('/{id}', 'JWTAuthController@update');
     
     
     ///////////////

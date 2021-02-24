@@ -17,6 +17,7 @@ class OrderController extends Controller
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository =$orderRepository;
+        config()->set( 'auth.defaults.guard', 'api' );
         $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**

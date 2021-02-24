@@ -33,7 +33,7 @@ class AdminRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>'Your Name is Required!',
+            'name.required'=>'Your Name is Required! ',
             'email.required'=>'An email is required!',
             'password.required'=>'A password is required!',
             'phone.required'=>'A phone number is required!',

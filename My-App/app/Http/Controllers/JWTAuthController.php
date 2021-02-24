@@ -26,7 +26,42 @@ class JWTAuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-   
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $user=$this->userRepository->display();
+        return response()->json($user);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user=$this->userRepository->view($id);
+        return response()->json($user);
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user=$this->userRepository->delete($id);
+        return response()->json([
+            'message' => ' User deleted'
+        ]);
+    }
 
     /**
      * Register a User.

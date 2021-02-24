@@ -27,6 +27,7 @@ class AdminRegisterRequest extends FormRequest
             'name' => 'required|between:2,100',
             'email' => 'required|email|unique:admins|max:50',
             'password' => 'required|string|min:6',
+            'phone' => ['required', 'regex:/^((961[\s-]*(3|7(0|1)))|([\s+]961[\s-]*(3|7(0|1)))|(03|7(0|1)))[\s+-]*\d{6}$/u'],
         ];
     }
     public function messages()
@@ -35,6 +36,7 @@ class AdminRegisterRequest extends FormRequest
             'name.required'=>'Your Name is Required!',
             'email.required'=>'An email is required!',
             'password.required'=>'A password is required!',
+            'phone.required'=>'A phone number is required!',
             
         ];
     }

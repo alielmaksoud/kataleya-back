@@ -9,6 +9,38 @@ use App\Response;
 
 class UserRepository implements UserRepositoryInterface
 {
+    public function display()
+    {
+        return $user = User::all();
+    }
+
+    public function view($id)
+    {
+        return User::where('id', $id)->first();
+
+    }
+
+    public function delete($id)
+    {
+        User::where('id', $id)->delete();
+        return response()->json([
+            'message' => 'User profile deleted'
+        ]);
+    }
+    public function update($request, $id)
+    {
+        $data = $request->all();
+        $user = Admin::where('id', $id)->first();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->phone = $data['phone'];
+        $user->save();
+    }
+
+
+
+
     public function register($request)
     {
         $data = $request->all();
@@ -16,7 +48,7 @@ class UserRepository implements UserRepositoryInterface
         'name' => $data['name'],
         'email'=>$data['email'],
         'password'=>bcrypt($data['password']),
-        'phone_number'=>$data['phone_number'],
+        'phone'=>$data['phone'],
          ]);
          
          if($user){

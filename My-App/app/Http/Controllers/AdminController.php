@@ -7,10 +7,13 @@ use App\Http\Controllers\Controller;
 use Validator;
 
 use App\Repositories\AdminRepository;
+use App\Repositories\UserRepository;
 use App\Http\Requests\AdminRegisterRequest;
 use App\Http\Requests\AdminLoginRequest;
 use App\Response;
 use App\Admin;
+use App\User;
+
 
 class AdminController extends Controller
 {
@@ -26,6 +29,78 @@ class AdminController extends Controller
         $this->adminRepository =$adminRepository;
         $this->middleware('auth:admin', ['except' => ['login', 'register']]);
     }
+
+
+   /////// user
+
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexuser()
+    {
+        return User::all();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showuser($id)
+    {
+        return User::where('id', $id)->first();
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyuser($id)
+    {
+        User::where('id', $id)->delete();
+
+        return User::all();
+    }
+
+    public function updateuser(Request $request, $id)
+    {
+        $request->validate([
+
+            'password' => 'min:6',
+            'phone' => ['required', 'regex:/^((961[\s-]*(3|7(0|1)))|([\s+]961[\s-]*(3|7(0|1)))|(03|7(0|1)))[\s+-]*\d{6}$/u'],
+         
+        ]);
+
+        $data = $request->all();
+        
+        $user = User::where('id', $id)->first();
+        if(!empty($request['password']) && $request['password'] !== "undefined"){
+            $user->password = $request['password'];
+        }if(!empty($request['name']) && $request['name'] !== "undefined"){
+            $user->name = $request['name'];
+        }if(!empty($request['email']) && $request['email'] !== "undefined"){
+            $user->email = $request['email'];
+        }if(!empty($request['phone']) && $request['phone'] !== "undefined"){
+            $user->phone = $request['phone'];
+            
+        }
+        $user->save();
+        
+        return response()->json([
+            'status' => 200,
+            'admin'  => $user
+        ]);
+    }
+
+
+
+    //////// admin
+
 
    /**
      * Display a listing of the resource.
@@ -64,21 +139,15 @@ class AdminController extends Controller
         ]);
     }
 
+
+
     /**
      * Register a admin.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(AdminRegisterRequest $request)
-    /* {
-        $validator=$request->validated();
-        
-        if ($validator) {
-            $admin=$this->adminRepository->register($request);
-            return Response::success($admin, "Admin succesfully registered!");
-        }
-        return Response::error(401, "Invalid info, couldn't Register");
-    } */
+    
     {
     $validator=$request->validated();
 
@@ -116,6 +185,35 @@ class AdminController extends Controller
         }
     }
 
+
+
+   /*  public function update(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'min:6',
+            'phone' => ['required', 'regex:/^((961[\s-]*(3|7(0|1)))|([\s+]961[\s-]*(3|7(0|1)))|(03|7(0|1)))[\s+-]*\d{6}$/u'],
+         
+        ]);
+
+        $data = $request->all();
+        
+        $admin = Admin::where('id', $id)->first();
+        if(!empty($request['password']) && $request['password'] !== "undefined"){
+            $admin->password = $request['password'];
+        }if(!empty($request['name']) && $request['name'] !== "undefined"){
+            $admin->name = $request['name'];
+        }if(!empty($request['email']) && $request['email'] !== "undefined"){
+            $admin->email = $request['email'];
+            
+        }
+        $admin->save();
+        
+        return response()->json([
+            'status' => 200,
+            'admin'  => $user
+        ]);
+    }
+ */
     /**
      * Get a JWT via given credentials.
      *
@@ -186,4 +284,6 @@ class AdminController extends Controller
     {
         return response()->json(['message' => 'Verified']);
     }
+
+    
 }

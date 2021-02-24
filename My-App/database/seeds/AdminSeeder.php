@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder
                 'email_verified_at'=>now(),
                 'name'=>'Mohammad Hassan',
                 'email'=>'kataleya.parfum@gmail.com',
+                'phone'=>'',
                 'password'=>bcrypt('admin123123'),
             ]);
         }

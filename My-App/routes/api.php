@@ -56,8 +56,10 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::delete('/{id}', 'AdminController@destroy');
     Route::post('/{id}', 'AdminsController@update');
     Route::get('/show', 'AdminController@index');
-    /* Route::get('admin/{id}', 'AdminController@show'); */
-    
+    ////user
+    Route::get('/user/show', 'AdminController@indexuser');
+    Route::delete('/user/{id}', 'AdminController@destroyuser');
+    Route::post('/user/{id}', 'AdminController@updateuser');   
 
    ////////////////
     Route::delete('messages/{id}', 'MessageController@destroy');
@@ -109,6 +111,9 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::post('logout', 'JWTAuthController@logout');
     Route::post('refresh', 'JWTAuthController@refresh');
     Route::get('profile', 'JWTAuthController@profile');
+    Route::delete('/{id}', 'JWTAuthController@destroy');
+    Route::post('/{id}', 'JWTAuthController@update');
+    
     
     ///////////////
     Route::get('/order', 'OrderController@index');

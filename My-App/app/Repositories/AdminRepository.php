@@ -41,6 +41,7 @@ class AdminRepository implements AdminRepositoryInterface
         $admin = Admin::create([
         'name' => $data['name'],
         'email'=>$data['email'],
+        'phone'=>$data['phone'],
         'password'=>bcrypt($data['password']),
          ]);
     }

@@ -26,7 +26,7 @@ class AdminRegisterRequest extends FormRequest
         return [
             'name' => 'required|between:2,100',
             'email' => 'required|email|unique:admins|max:50',
-            'password' => 'required|confirmed|string|min:6',
+            'password' => 'required|string|min:6',
         ];
     }
     public function messages()

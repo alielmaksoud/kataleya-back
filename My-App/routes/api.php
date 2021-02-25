@@ -54,7 +54,7 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::get('profile', 'AdminController@profile');
     Route::post('/verify','AdminController@verifytokens');
     Route::delete('/{id}', 'AdminController@destroy');
-    Route::post('/{id}', 'AdminsController@update');
+    Route::put('/{id}', 'AdminController@update');
     Route::get('/show', 'AdminController@index');
     ////user
     Route::get('/user/show', 'AdminController@indexuser');

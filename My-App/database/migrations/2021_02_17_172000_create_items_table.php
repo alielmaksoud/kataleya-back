@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->Float('offer_price');
             $table->Float('bottle_size');
             $table->boolean('is_offer')->default(0);
+            $table->boolean('is_featured')->default(0);
             $table->timestamps();
         });
         Schema::table('items', function (Blueprint $table) {

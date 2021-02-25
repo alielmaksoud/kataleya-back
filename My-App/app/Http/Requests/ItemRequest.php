@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,8 +32,8 @@ class CategoryRequest extends FormRequest
             // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'bottle_size'=>'required|numeric',
             'category_id'=>'required|integer',
-            'is_offer'=>'required|boolean'
-
+            'is_offer'=>'required|boolean',
+            'is_featured'=>'required|boolean'   
         ];
     }
     public function messages()
@@ -64,6 +64,8 @@ class CategoryRequest extends FormRequest
             'is_offer.required'=>'This should be required',
             'is_offer.boolean' => 'This should be true, false, 0, or 1',
             
+            'is_featured.required'=>'This should be required',
+            'is_featured.boolean' => 'This should be true, false, 0, or 1',
             // 'overall_price.regex:/^\d*(\.\d{2})?$/' => 'Price not in correct format',
 
         ];

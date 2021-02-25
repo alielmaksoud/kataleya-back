@@ -18,6 +18,7 @@ class CartItemController extends Controller
     public function __construct(CartItemRepository $cartItemRepository)
     {
         $this->cartItemRepository =$cartItemRepository;
+        config()->set( 'auth.defaults.guard', 'api' );
         $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**

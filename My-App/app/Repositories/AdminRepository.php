@@ -31,6 +31,7 @@ class AdminRepository implements AdminRepositoryInterface
         $admin->name = $data['name'];
         $admin->email = $data['email'];
         $admin->password = $data['password'];
+        $admin->phone =$data['phone'];
         $admin->save();
     }
 

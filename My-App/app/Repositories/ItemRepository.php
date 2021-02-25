@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Item;
 
 class ItemRepository implements ItemRepositoryInterface
@@ -27,11 +29,12 @@ class ItemRepository implements ItemRepositoryInterface
             $item = Item::create([
                 'name'=>$data['name'],
                 'description' => $data['description'],
-                'image'=>$path['image'],
+                'image'=>$path,
                 'price' => $data['price'],
                 'bottle_size' => $data['bottle_size'],
                 'is_offer'=>$data['is_offer'],
                 'offer_price' => $data['offer_price'],
+                'is_featured'=>$data['is_featured'],
                 'category_id'=>$data['category_id'],
             ]);
             return response()->json([
@@ -57,6 +60,7 @@ class ItemRepository implements ItemRepositoryInterface
         $item->bottle_size = $data['bottle_size'];
         $item->is_offer = $data['is_offer'];
         $item->offer_price = $data['offer_price'];
+        $item->is_featured = $data['is_featured'];
         $item->category_id = $data['category_id'];
         $item->save();
         return response()->json(['status' => 200, 'item' => $item]);

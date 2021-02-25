@@ -37,20 +37,19 @@ Route::post('messages', 'MessageController@store');
 Route::get('/item', 'ItemController@index');
 Route::get('/item/{id}', 'ItemController@show');
 
-// ////////// admin routes
-// Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
-// {
-//     Route::post('register', 'AdminController@register');
-//     Route::post('login', 'AdminController@login');
+////////// admin routes
+Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
+{
+    Route::post('register', 'AdminController@register');
+    Route::post('login', 'AdminController@login');
 
     
-// });
+});
 
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.auth']],function ()
 
 {
-    Route::post('register', 'AdminController@register');
-    Route::post('login', 'AdminController@login');
+    
 
     Route::post('logout', 'AdminController@logout');
     Route::post('refresh', 'AdminController@refresh');

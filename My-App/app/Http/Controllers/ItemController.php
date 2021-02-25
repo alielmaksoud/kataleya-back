@@ -17,6 +17,7 @@ class ItemController extends Controller
 
     public function __construct(ItemRepository $itemRepository)
     {
+        config()->set('auth.defaults.guard', 'admin');
         $this->itemRepository =$itemRepository;
         $this->user = JWTAuth::parseToken()->authenticate();
     }
@@ -49,16 +50,12 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        $validator=$request->validated();
+        // $validator=$request->validated();
 
-        if ($validator) {
-            $item=$this->itemRepository->create($request);
+        // if ($validator) {
+        $item=$this->itemRepository->create($request);
 
-            return response()->json([
-                    'message' => 'Item Added',
-                    'item' => $item
-                ]);
-        }
+        // }
     }
 
     /**

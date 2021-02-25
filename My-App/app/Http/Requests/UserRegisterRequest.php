@@ -26,8 +26,8 @@ class UserRegisterRequest extends FormRequest
         return [
             'name' => 'required|between:2,100',
             'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|confirmed|string|min:6',
-            'phone_number' => ['required', 'regex:/^((961[\s-]*(3|7(0|1)))|([\s+]961[\s-]*(3|7(0|1)))|(03|7(0|1)))[\s+-]*\d{6}$/u'],
+            'password' => 'required|string|min:6',
+            'phone' => ['required', 'regex:/^((961[\s-]*(3|7(0|1)))|([\s+]961[\s-]*(3|7(0|1)))|(03|7(0|1)))[\s+-]*\d{6}$/u'],
         ];
     }
     public function messages()
@@ -36,7 +36,7 @@ class UserRegisterRequest extends FormRequest
             'name.required'=>'Your Name is Required!',
             'email.required'=>'An email is required!',
             'password.required'=>'A password is required!',
-            'phone_number.required'=>'An email is required!',
+            'phone.required'=>'A phone number is required!',
 
         ];
     }

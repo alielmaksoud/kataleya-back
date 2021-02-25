@@ -16,7 +16,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::where('id', $id)->first();
     }
  
-    public function create($request)
+    public function createCategory($request)
     {
         $data = $request->all();
             

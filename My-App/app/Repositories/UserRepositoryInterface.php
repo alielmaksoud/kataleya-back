@@ -13,4 +13,8 @@ interface UserRepositoryInterface
     public function refresh();
     public function displayOrder($orderId);
     public function createNewToken($token);
+    public function display();
+    public function delete($id);
+    public function view($id);
+    public function update($request, $id);
 }

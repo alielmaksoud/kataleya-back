@@ -18,6 +18,7 @@ class CategoryController extends Controller
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository =$categoryRepository;
+        config()->set( 'auth.defaults.guard', 'admin' );
         $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**
@@ -49,16 +50,16 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $validator=$request->validated();
+        // $validator=$request->validated();
 
-        if ($validator) {
-            $category=$this->categoryRepository->create($request);
+        // if ($validator) {
+            $category=$this->categoryRepository->createCategory($request);
 
             return response()->json([
                     'message' => 'Category Added',
                     'category' => $category
                 ]);
-        }
+        // }
     }
 
     /**

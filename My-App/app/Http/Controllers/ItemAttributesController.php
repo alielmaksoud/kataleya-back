@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
+use App\ItemAttributes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\ItemRequest;
-use App\Repositories\ItemRepository;
+use App\Http\Requests\ItemAttributesRequest;
+use App\Repositories\ItemAttributesRepository;
 
 use JWTAuth;
 
-class ItemController extends Controller
+class ItemAttributesController extends Controller
 {
     protected $user;
-    protected $itemRepository;
+    protected $itemAttributesRepository;
 
-    public function __construct(ItemRepository $itemRepository)
+    public function __construct(ItemAttributeRepository $itemAttributeRepository)
     {
         config()->set( 'auth.defaults.guard', 'admin' );
-        $this->itemRepository =$itemRepository;
+        $this->itemAttributeRepository =$itemAttributeRepository;
         $this->user = JWTAuth::parseToken()->authenticate();
 
     }
@@ -29,8 +29,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items=$this->itemRepository->display();
-        return response()->json($items);
+        $itemAttributes=$this->itemAttributeRepository->display();
+        return response()->json($itemAttributes);
     }
 
     /**
@@ -49,12 +49,12 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemRequest $request)
+    public function store(ItemAttributeRequest $request)
     {
         // $validator=$request->validated();
 
         // if ($validator) {
-            $item=$this->itemRepository->create($request);
+            $itemAttribute=$this->itemAttributeRepository->create($request);
 
         // }
     }
@@ -67,8 +67,8 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item=$this->itemRepository->view($id);
-        return response()->json($item);
+        $itemAttribute=$this->itemAttributeRepository->view($id);
+        return response()->json($itemAttribute);
     }
 
     /**
@@ -89,15 +89,17 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemRequest $request, $id)
+    public function update(ItemAttributeRequest $request, $id)
     {
+        $validator=$request->validated();
 
 
-            $item=$this->itemRepository->update($request, $id);
+        if ($validator) {
+            $itemAttribute=$this->itemAttributeRepository->update($request, $id);
 
 
-            return response()->json(['status' => 200, 'item' => $item]);
-       
+            return response()->json(['status' => 200, 'itemAttribute' => $itemAttribute]);
+        }
     }
 
     /**

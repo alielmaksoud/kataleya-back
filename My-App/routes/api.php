@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 ///////categories
-Route::get('category', 'CategoryController@index');
+Route::get('category', 'GetCategoryController@index');
 Route::get('category/{id}', 'CategoryController@show');
 
 // /////messages branch
@@ -34,8 +34,8 @@ Route::post('messages', 'MessageController@store');
 
 // Route::put('messages/{id}', 'MessageController@update');
 
-Route::get('/item', 'ItemController@index');
-Route::get('/item/{id}', 'ItemController@show');
+Route::get('/item', 'GetItemController@index');
+Route::get('/item/{id}', 'GetItemController@show');
 
 ////////// admin routes
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::delete('messages/{id}', 'MessageController@destroy');
 
     //////////////
+    // Route::get('/item', 'ItemController@index'); 
     Route::post('/item', 'ItemController@store');
     Route::put('/item/{id}', 'ItemController@update');
     Route::delete('/item/{id}', 'ItemController@destroy');
@@ -87,6 +88,9 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
    //////////////
    Route::get('messages', 'MessageController@index');
    Route::get('messages/{id}', 'MessageController@show');
+   ///////////////
+   Route::put('/usdRate/{id}', 'UsdRateController@update');
+
 
 });
 

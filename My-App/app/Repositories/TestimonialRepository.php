@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Testimonial;
+use Storage;
 
-class Testimonialpository implements TestimonialRepositoryInterface
+class TestimonialRepository implements TestimonialRepositoryInterface
 {
     public function display()
     {
@@ -24,8 +25,8 @@ class Testimonialpository implements TestimonialRepositoryInterface
         if ($path) {
             $testimonial = Testimonial::create([
                 'name'=>$data['name'],
-                'content' => $data['description'],
-                'image'=>$path['image'],
+                'content' => $data['content'],
+                'image'=>$path,
                
             ]);
             return response()->json([

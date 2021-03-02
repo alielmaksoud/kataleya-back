@@ -37,8 +37,8 @@ Route::post('messages', 'MessageController@store');
 Route::get('/item', 'ItemController@index');
 Route::get('/item/{id}', 'ItemController@show');
 ////
-Route::get('/testimonial', 'TestimonialController@index');
-Route::get('/testimonial/{id}', 'TestimonialController@show');
+// Route::get('/testimonial', 'TestimonialController@index');
+// Route::get('/testimonial/{id}', 'TestimonialController@show');
 
 ////////// admin routes
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']], function () {
@@ -83,6 +83,11 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     //////////////
     Route::get('messages', 'MessageController@index');
     Route::get('messages/{id}', 'MessageController@show');
+    //////
+    Route::post('/testimonial', 'TestimonialController@store');
+    Route::get('/testimonial', 'TestimonialController@index');
+    Route::get('/testimonial/{id}', 'TestimonialController@show');
+    Route::delete('/testimonial/{id}', 'TestimonialController@destroy');
 });
 
 
@@ -129,7 +134,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     //  Route::put('/cartItem/{id}', 'CartController@update');
     Route::delete('/cartItem/{id}', 'CartController@destroy');
     ///
-    Route::post('/testimonial', 'TestimonialController@store');
-    Route::put('/testimonial/{id}', 'TestimonialController@update');
-    Route::delete('/testimonial/{id}', 'TestimonialController@destroy');
+    // Route::post('/testimonial', 'TestimonialController@store');
+    // Route::put('/testimonial/{id}', 'TestimonialController@update');
+    // Route::delete('/testimonial/{id}', 'TestimonialController@destroy');
 });

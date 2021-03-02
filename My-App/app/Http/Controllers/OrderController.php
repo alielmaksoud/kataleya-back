@@ -17,8 +17,8 @@ class OrderController extends Controller
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository =$orderRepository;
-        config()->set( 'auth.defaults.guard', 'api' );
-        $this->user = JWTAuth::parseToken()->authenticate();
+        config()->set('auth.defaults.guard', 'api');
+        //  $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**
      * Display a listing of the resource.
@@ -54,7 +54,7 @@ class OrderController extends Controller
         if ($validator) {
             $order=$this->orderRepository->create($request);
             $id = auth()->user()->id;
-            $data = Order::find(\DB::table('orders')->where('user_id',$id)->max('id'));
+            $data = Order::find(\DB::table('orders')->where('user_id', $id)->max('id'));
             return Response::success($data, "Order Added");
         }
         return Response::error(401, "Order Not Added", "Invalid Data");

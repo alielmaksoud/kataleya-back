@@ -35,11 +35,12 @@ class OrderRepository implements OrderRepositoryInterface
     public function update($request, $id)
     {
         $data = $request->all();
+        $Uid = auth()->user()->id;
         $order = Order::where('id', $id)->first();
         $order->overall_price = $data['overall_price'];
         $order->order_date = $data['order_date'];
         $order->shipped_date=$data['shipped_date'];
-        $order->user_id=$data['user_id'];
+        $order->user_id=$Uid;
         $order->address=$data['address'];
         $order->save();
     }

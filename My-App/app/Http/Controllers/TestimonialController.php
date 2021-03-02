@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\TestimonialRepository;
+use App\Http\Requests\TestimonialRequest;
+use App\Testimonial;
+use JWTAuth;
 
 class TestimonialController extends Controller
 {
     protected $user;
-    protected $testimonialRepository;
+   
 
     public function __construct(TestimonialRepository $testimonialRepository)
     {
         $this->testimonialRepository =$testimonialRepository;
-        $this->user = JWTAuth::parseToken()->authenticate();
+        config()->set('auth.defaults.guard', 'api');
+        // $this->user = JWTAuth::parseToken()->authenticate();
+        // $this->middleware('auth:admin', ['except' => ['login', 'register']]);
     }
     /**
      * Display a listing of the resource.

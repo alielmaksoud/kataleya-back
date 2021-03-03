@@ -54,8 +54,10 @@ class ItemController extends Controller
         // $validator=$request->validated();
 
         // if ($validator) {
-        $item=$this->itemRepository->create($request);
 
+            $item=$this->itemRepository->create($request);
+            return $item;
+            
         // }
     }
 
@@ -94,7 +96,7 @@ class ItemController extends Controller
 
 
             $item=$this->itemRepository->update($request, $id);
-
+        
 
             return response()->json(['status' => 200, 'item' => $item]);
        

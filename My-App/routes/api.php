@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 ///////categories
-Route::get('category', 'GetCategoryController@index');
+Route::get('category', 'CategoryController@index');
 Route::get('category/{id}', 'CategoryController@show');
 
 // /////messages branch
@@ -34,10 +34,10 @@ Route::post('messages', 'MessageController@store');
 
 // Route::put('messages/{id}', 'MessageController@update');
 
-Route::get('/item', 'GetItemController@index');
-Route::get('/item/{id}', 'GetItemController@show');
+Route::get('/item', 'ItemController@index');
+Route::get('/item/{id}', 'ItemController@show');
 
-////////// admin routes
+//////////// admin routes
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],function ()
 {
     Route::post('register', 'AdminController@register');
@@ -46,11 +46,9 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']],functi
     
 });
 
+
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.auth']],function ()
-
 {
-    
-
     Route::post('logout', 'AdminController@logout');
     Route::post('refresh', 'AdminController@refresh');
     Route::get('profile', 'AdminController@profile');
@@ -67,17 +65,20 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::delete('messages/{id}', 'MessageController@destroy');
 
     //////////////
-    // Route::get('/item', 'ItemController@index'); 
     Route::post('/item', 'ItemController@store');
     Route::put('/item/{id}', 'ItemController@update');
     Route::delete('/item/{id}', 'ItemController@destroy');
 
-
+    ///////////////////
+   
+    Route::post('/feature', 'FeatureController@store');
+    Route::put('/feature/{id}', 'FeatureController@update');
+    Route::delete('/feature/{id}', 'FeatureController@destroy');
     ////////////
     
     Route::post('category', 'CategoryController@store');
-    Route::put('/category/{id}', 'CategoryController@update');
-    Route::delete('/category/{id}', 'CategoryController@destroy');
+    Route::put('category/{id}', 'CategoryController@update');
+    Route::delete('category/{id}', 'CategoryController@destroy');
 
     ///////////// /Route::get('/order', 'OrderController@index');
     Route::get('/order', 'OrderController@index');
@@ -88,9 +89,6 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
    //////////////
    Route::get('messages', 'MessageController@index');
    Route::get('messages/{id}', 'MessageController@show');
-   ///////////////
-   Route::put('/usdRate/{id}', 'UsdRateController@update');
-
 
 });
 

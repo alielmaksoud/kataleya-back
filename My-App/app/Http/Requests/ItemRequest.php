@@ -29,8 +29,8 @@ class ItemRequest extends FormRequest
             'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
             // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'category_id'=>'required|integer',
-            'is_offer'=>'required|boolean',
-            'is_featured'=>'required|boolean'   
+            'is_offer'=>'boolean',
+            'is_featured'=>'boolean'   
         ];
     }
     public function messages()
@@ -52,10 +52,10 @@ class ItemRequest extends FormRequest
             'category_id.required'=>'Category id id is required',
             'category_id.integer'=>'Category id should be an integer',
             
-            'is_offer.required'=>'This should be required',
+            // 'is_offer.required'=>'This should be required',
             'is_offer.boolean' => 'This should be true, false, 0, or 1',
             
-            'is_featured.required'=>'This should be required',
+            // 'is_featured.required'=>'This should be required',
             'is_featured.boolean' => 'This should be true, false, 0, or 1',
             // 'overall_price.regex:/^\d*(\.\d{2})?$/' => 'Price not in correct format',
 

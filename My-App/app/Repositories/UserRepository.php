@@ -30,7 +30,7 @@ class UserRepository implements UserRepositoryInterface
     public function update($request, $id)
     {
         $data = $request->all();
-        $user = Admin::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = $data['password'];

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable =['name', 'description', 'image', 'price', 'offer_price', 'bottle_size', 'is_offer', 'is_featured', 'category_id'];
+    protected $fillable =['name', 'description', 'image', 'is_offer', 'is_featured', 'category_id'];
 
     public function orderItem()
     {
@@ -19,5 +19,9 @@ class Item extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function itemAttributes()
+    {
+        return $this->hasMany(ItemAttributes::class, 'item_id', 'id');
     }
 }

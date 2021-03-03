@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
+use App\UsdRate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\ItemRequest;
-use App\Repositories\ItemRepository;
-
+use App\Http\Requests\UsdRateRequest;
+use App\Repositories\UsdRateRepository;
 use JWTAuth;
 
-class ItemController extends Controller
+class UsdRateController extends Controller
 {
-    protected $user;
-    protected $itemRepository;
+    protected $usdRate;
+    protected $usdRateRepository;
 
-    public function __construct(ItemRepository $itemRepository)
+    public function __construct(UsdRateRepository $usdRateRepository)
     {
         config()->set( 'auth.defaults.guard', 'admin' );
-        $this->itemRepository =$itemRepository;
+        $this->usdRateRepository =$usdRateRepository;
         $this->user = JWTAuth::parseToken()->authenticate();
-
+        
     }
     /**
      * Display a listing of the resource.
@@ -29,8 +27,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items=$this->itemRepository->display();
-        return response()->json($items);
+        //
     }
 
     /**
@@ -49,36 +46,29 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemRequest $request)
+    public function store(Request $request)
     {
-        // $validator=$request->validated();
-
-        // if ($validator) {
-            $item=$this->itemRepository->create($request);
-            return $item;
-            
-        // }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\UsdRate  $usdRate
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(UsdRate $usdRate)
     {
-        $item=$this->itemRepository->view($id);
-        return response()->json($item);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\UsdRate  $usdRate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(UsdRate $usdRate)
     {
         //
     }
@@ -87,31 +77,28 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\UsdRate  $usdRate
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemRequest $request, $id)
+    public function update(UsdRateRequest $request, $id)
     {
-
-
-            $item=$this->itemRepository->update($request, $id);
-        
-
-            return response()->json(['status' => 200, 'item' => $item]);
+       
+        // $usdRate=$this->usdRateRepository->update($request, 1);
+        // return response()->json(['status' => 200, 'usdRate' => $usdRate]);
+        $usdRate=$this->usdRateRepository->update($request, $id);
+        $rate = UsdRate::all();
+        return response()->json(['status' => 200, 'usdRate' => $rate]);
        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\UsdRate  $usdRate
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(UsdRate $usdRate)
     {
-        $item=$this->itemRepository->delete($id);
-        return response()->json([
-            'message' => ' Item deleted'
-        ]);
+        //
     }
 }

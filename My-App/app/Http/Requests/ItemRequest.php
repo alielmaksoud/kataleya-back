@@ -26,14 +26,11 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'description' => 'required|max:500',
-            'price'=>'required|numeric',
-            'offer_price'=>'required|numeric',
             'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
             // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
-            'bottle_size'=>'required|numeric',
             'category_id'=>'required|integer',
-            'is_offer'=>'required|boolean',
-            'is_featured'=>'required|boolean'   
+            'is_offer'=>'boolean',
+            'is_featured'=>'boolean'   
         ];
     }
     public function messages()
@@ -46,25 +43,19 @@ class ItemRequest extends FormRequest
             'description.required' => 'Quantity is required!',
             'description.max:500'=>'Exceeded space allowed',
 
-            'price.required' => 'Price is required!',
-            'price.numeric' => 'Price should be a number!',
-
-            'offer_price.required' => 'Offer Price is required!',
-            'offer_price.numeric' => 'Offer Price should be a number!',
 
             'image.required' => 'Image is required!',
-            'price.mimes:jpeg,png,jpg,gif,svg|max:2048' => 'Imageshould be in the right format!',
+            'image.mimes:jpeg,png,jpg,gif,svg|max:2048' => 'Imageshould be in the right format!',
 
-            'bottle_size.required'=>'Bottle size is required',
-            'bottle_size.numeric' => 'Bottle Size should be a number!',
+          
 
             'category_id.required'=>'Category id id is required',
             'category_id.integer'=>'Category id should be an integer',
             
-            'is_offer.required'=>'This should be required',
+            // 'is_offer.required'=>'This should be required',
             'is_offer.boolean' => 'This should be true, false, 0, or 1',
             
-            'is_featured.required'=>'This should be required',
+            // 'is_featured.required'=>'This should be required',
             'is_featured.boolean' => 'This should be true, false, 0, or 1',
             // 'overall_price.regex:/^\d*(\.\d{2})?$/' => 'Price not in correct format',
 

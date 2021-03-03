@@ -11,7 +11,6 @@ use App\ItemAttributes;
 
 class ItemRepository implements ItemRepositoryInterface
 {
-
     public function display()
     {
 
@@ -42,11 +41,8 @@ class ItemRepository implements ItemRepositoryInterface
                 'name'=>$data['name'],
                 'description' => $data['description'],
                 'image'=>$path,
-                // 'price' => $data['price'],
-                // 'bottle_size' => $data['bottle_size'],
-                'is_offer'=>$data['is_offer'],
-                // 'offer_price' => $data['offer_price'],
-                'is_featured'=>$data['is_featured'],
+                // 'is_offer'=>$data['is_offer'],
+                // 'is_featured'=>$data['is_featured'],
                 'category_id'=>$data['category_id'],
             ]);
             
@@ -60,12 +56,15 @@ class ItemRepository implements ItemRepositoryInterface
             }
             $numAttributes = count($data) / 3;
 
-            for ($i = 1; $i <= $numAttributes; $i++) {
+            for ($i = 0; $i < $numAttributes; $i++) {
                 ${"attr_".$i} = [];
             }
 
             foreach ($data as $key => $value) {
                 switch ($key) {
+                    case (preg_match('/_0.*/', $key) ? true : false):
+                        $attr_0 += array($key=>$value);
+                        break;
                     case (preg_match('/_1.*/', $key) ? true : false):
                         $attr_1 += array($key=>$value);
                         break;
@@ -99,22 +98,23 @@ class ItemRepository implements ItemRepositoryInterface
                 }
             }
             $item_id = Item::max('id');
-            for ($i = 1; $i <= $numAttributes; $i++) {
+            for ($i = 0; $i < $numAttributes; $i++) {
                 $itemAttributes = ItemAttributes::create([
                     'price' => (${"attr_".$i}['price_'.$i]),
                     'offer_price' => (${"attr_".$i}['offer_price_'.$i]),
                     'bottle_size' => (${"attr_".$i}['bottle_size_'.$i]),
                     'item_id' => $item_id,
                 ]);
+               
             }
+        
+            return response()->json([
+                'message' => 'Item and attributes Added',
+                'item' => $item
+            ]);
+        }else {
+            return response()->json(['status' => 500, 'error' => "couldnt upload image"]);
         }
-        //     return response()->json([
-        //         'message' => 'Item and attributes Added',
-        //         'item' => $item
-        //     ]);
-        // }else {
-        //     return response()->json(['staus' => 500, 'error' => "couldnt upload image"]);
-        // }
     }
     public function update($request, $id)
     {

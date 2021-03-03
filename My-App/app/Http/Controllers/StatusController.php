@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
+use App\Status;
 use Illuminate\Http\Request;
-use App\Http\Requests\AddMessageRequest;
-use App\Repositories\MessageRepository;
 
-class MessageController extends Controller
+class StatusController extends Controller
 {
-    protected $messageRepository;
-
-    public function __construct(MessageRepository $messageRepository)
+    public function __construct(StatusRepository $statusRepository)
     {
-        $this->messageRepository =$messageRepository;
+        $this->statusRepository =$statusRepository;
+        config()->set('auth.defaults.guard', 'api');
+        $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**
      * Display a listing of the resource.
@@ -22,9 +20,9 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return $this->messageRepository->display();
+        //
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,31 +39,39 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddMessageRequest $request)
+    public function store(Request $request)
     {
-        //
-        return $this->messageRepository->create($request);
+        $validator=$request->validated();
+
+        if ($validator) {
+            $status=$this->statusRepository->create($request);
+
+            return response()->json([
+                    'message' => 'status Added',
+                    'status' => $status
+                ]);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Message  $messages
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Status $status)
     {
-        //
-        return $this->messageRepository->view($id);
+        $status=$this->statusRepository->view($id);
+        return response()->json($status);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Message $message
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function edit(Message $message)
+    public function edit(Status $status)
     {
         //
     }
@@ -74,10 +80,10 @@ class MessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Message  $message
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Status $status)
     {
         //
     }
@@ -85,12 +91,11 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Message  $message
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Status $status)
     {
         //
-        return $this->messageRepository->delete($id);
     }
 }

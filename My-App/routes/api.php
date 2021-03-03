@@ -25,7 +25,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('category', 'CategoryController@index');
+///////categories
+Route::get('category', 'GetCategoryController@index');
 Route::get('category/{id}', 'CategoryController@show');
 Route::get('category/{itemId}', 'CategoryController@displayItems');
 // /////messages branch
@@ -34,11 +35,11 @@ Route::post('messages', 'MessageController@store');
 
 // Route::put('messages/{id}', 'MessageController@update');
 
-Route::get('/item', 'ItemController@index');
-Route::get('/item/{id}', 'ItemController@show');
-////
+
 // Route::get('/testimonial', 'TestimonialController@index');
 // Route::get('/testimonial/{id}', 'TestimonialController@show');
+Route::get('/item', 'GetItemController@index');
+Route::get('/item/{id}', 'GetItemController@show');
 
 ////////// admin routes
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin']], function () {
@@ -60,9 +61,10 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::post('/user/{id}', 'AdminController@updateuser');
 
     ////////////////
-    Route::delete('messages/{id}', 'MessageController@destroy');
-
+    Route::delete('/messages/{id}', 'MessageController@destroy');
+    Route::get('/message', 'MessageController@index');
     //////////////
+    // Route::get('/item', 'ItemController@index');
     Route::post('/item', 'ItemController@store');
     Route::put('/item/{id}', 'ItemController@update');
     Route::delete('/item/{id}', 'ItemController@destroy');
@@ -80,6 +82,8 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::get('/order/{id}', 'OrderController@show');
     Route::put('/order/{id}', 'OrderController@update');
     Route::delete('/order/{id}', 'OrderController@destroy');
+    Route::post('/status', 'StatusController@store');
+    Route::get('/status/{id}', 'StatusController@show');
     //////////////
     Route::get('messages', 'MessageController@index');
     Route::get('messages/{id}', 'MessageController@show');
@@ -88,6 +92,8 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::get('/testimonial', 'TestimonialController@index');
     Route::get('/testimonial/{id}', 'TestimonialController@show');
     Route::delete('/testimonial/{id}', 'TestimonialController@destroy');
+    //////////////
+    Route::put('/usdRate/{id}', 'UsdRateController@update');
 });
 
 

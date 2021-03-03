@@ -11,6 +11,7 @@ class Order extends Model
         'shipped_date',
         'order_date',
         'user_id',
+        'status_id',
         'address'
     ];
     //
@@ -22,5 +23,8 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
-
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id', 'id');
+    }
 }

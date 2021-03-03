@@ -30,10 +30,9 @@ class ItemRequest extends FormRequest
             'offer_price'=>'required|numeric',
             'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
-            'bottle_size'=>'required|numeric',
             'category_id'=>'required|integer',
             'is_offer'=>'required|boolean',
-            'is_featured'=>'required|boolean'   
+            'is_featured'=>'required|boolean'
         ];
     }
     public function messages()
@@ -46,17 +45,11 @@ class ItemRequest extends FormRequest
             'description.required' => 'Description is required!',
             'description.max:500'=>'Exceeded space allowed',
 
-            'price.required' => 'Price is required!',
-            'price.numeric' => 'Price should be a number!',
-
-            'offer_price.required' => 'Offer Price is required!',
-            'offer_price.numeric' => 'Offer Price should be a number!',
 
             'image.required' => 'Image is required!',
-            'price.mimes:jpeg,png,jpg,gif,svg|max:2048' => 'Image should be in the right format!',
+            'image.mimes:jpeg,png,jpg,gif,svg|max:2048' => 'Imageshould be in the right format!',
 
-            'bottle_size.required'=>'Bottle size is required',
-            'bottle_size.numeric' => 'Bottle Size should be a number!',
+          
 
             'category_id.required'=>'Category id id is required',
             'category_id.integer'=>'Category id should be an integer',

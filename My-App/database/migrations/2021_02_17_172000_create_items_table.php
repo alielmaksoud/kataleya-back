@@ -18,9 +18,6 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('image');
-            $table->Float('price');
-            $table->Float('offer_price');
-            $table->Float('bottle_size');
             $table->boolean('is_offer')->default(0);
             $table->boolean('is_featured')->default(0);
             $table->timestamps();

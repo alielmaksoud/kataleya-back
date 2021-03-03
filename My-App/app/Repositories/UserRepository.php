@@ -51,13 +51,12 @@ class UserRepository implements UserRepositoryInterface
         'phone'=>$data['phone'],
          ]);
          
-         if($user){
-             $id= $user->id;
+        if ($user) {
+            $id= $user->id;
             $cart = Cart::create([
                 'user_id' => $id,
             ]);
-         }
-         
+        }
     }
 
     /**
@@ -117,5 +116,12 @@ class UserRepository implements UserRepositoryInterface
      */
     public function createNewToken($token)
     {
+    }
+    public function displayOrder($orderId)
+    {
+        $user = User::with('orders')->findOrFail($orderId);
+        return response()->json([
+            'user' => $user
+        ]);
     }
 }

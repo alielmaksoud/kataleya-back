@@ -57,7 +57,6 @@ class MessageController extends Controller
     {
         //
         return $this->messageRepository->view($id);
-
     }
 
     /**
@@ -81,7 +80,6 @@ class MessageController extends Controller
     public function update(Request $request)
     {
         //
-       
     }
 
     /**
@@ -94,6 +92,5 @@ class MessageController extends Controller
     {
         //
         return $this->messageRepository->delete($id);
-
     }
 }

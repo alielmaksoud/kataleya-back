@@ -38,4 +38,11 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         Category::where('id', $id)->delete();
     }
+    public function displayItems($ItemId)
+    {
+        $category = Category::with('items')->findOrFail($ItemId);
+        return response()->json([
+            'user' => $category
+        ]);
+    }
 }

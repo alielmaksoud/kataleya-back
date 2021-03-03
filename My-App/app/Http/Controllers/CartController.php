@@ -28,7 +28,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        
         $carts=$this->cartRepository->display();
 
         // $user = Auth::user();

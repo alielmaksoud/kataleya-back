@@ -26,11 +26,14 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'description' => 'required|max:500',
-            'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'price'=>'required|numeric',
+            'offer_price'=>'required|numeric',
+            'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'category_id'=>'required|integer',
             'is_offer'=>'boolean',
             'is_featured'=>'boolean'   
+
         ];
     }
     public function messages()
@@ -40,7 +43,7 @@ class ItemRequest extends FormRequest
             'name.min:3'=>'Name cannot be less than three letters',
             'name.max:255'=>"Exceeded space allowed",
 
-            'description.required' => 'Quantity is required!',
+            'description.required' => 'Description is required!',
             'description.max:500'=>'Exceeded space allowed',
 
 

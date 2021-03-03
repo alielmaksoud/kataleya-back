@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\CategoryRequest;
-use App\Repositories\CategoryRepositoryInterface;
-
+use App\Repositories\TestimonialRepository;
+use App\Http\Requests\TestimonialRequest;
+use App\Testimonial;
 use JWTAuth;
 
-class CategoryController extends Controller
+class TestimonialController extends Controller
 {
     protected $user;
-    protected $categoryRepository;
+   
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(TestimonialRepository $testimonialRepository)
     {
-        $this->categoryRepository =$categoryRepository;
-        config()->set( 'auth.defaults.guard', 'admin' );
-        $this->user = JWTAuth::parseToken()->authenticate();
+        $this->testimonialRepository =$testimonialRepository;
+        config()->set('auth.defaults.guard', 'api');
+        // $this->user = JWTAuth::parseToken()->authenticate();
+        // $this->middleware('auth:admin', ['except' => ['login', 'register']]);
     }
     /**
      * Display a listing of the resource.
@@ -28,8 +27,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=$this->categoryRepository->display();
-        return response()->json($categories);
+        $testimonials=$this->testimonialRepository->display();
+        return response()->json($testimonials);
     }
 
     /**
@@ -48,18 +47,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(TestimonialRequest $request)
     {
-        // $validator=$request->validated();
+        $validator=$request->validated();
 
-        // if ($validator) {
-            $category=$this->categoryRepository->createCategory($request);
+        if ($validator) {
+            $testimonial=$this->testimonialRepository->create($request);
 
             return response()->json([
-                    'message' => 'Category Added',
-                    'category' => $category
+                    'message' => 'Testimonial Added',
+                    'testimonial' => $testimonial
                 ]);
-        // }
+        }
     }
 
     /**
@@ -70,13 +69,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category=$this->categoryRepository->view($id);
-        return response()->json($category);
+        $testimonial=$this->testimonialRepository->view($id);
+        return response()->json($testimonial);
     }
-    public function displayItem($itemId)
-    {
-        return $this->categoryRepository->displayItem($itemId);
-    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -95,16 +91,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(TestimonialRequest $request, $id)
     {
         $validator=$request->validated();
 
 
         if ($validator) {
-            $category=$this->categoryRepository->update($request, $id);
+            $testimonial=$this->testimonialRepository->update($request, $id);
             
 
-            return response()->json(['status' => 200, 'category' => $category]);
+            return response()->json(['status' => 200, 'testimonial' => $testimonial]);
         }
     }
 
@@ -116,9 +112,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category=$this->categoryRepository->delete($id);
+        $testimonial=$this->testimonialRepository->delete($id);
         return response()->json([
-            'message' => 'Category deleted'
+            'message' => ' testimonial deleted'
         ]);
     }
 }

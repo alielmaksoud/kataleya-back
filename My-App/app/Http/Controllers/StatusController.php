@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class StatusController extends Controller
 {
+    public function __construct(StatusRepository $statusRepository)
+    {
+        $this->statusRepository =$statusRepository;
+        config()->set('auth.defaults.guard', 'api');
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +41,16 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator=$request->validated();
+
+        if ($validator) {
+            $status=$this->statusRepository->create($request);
+
+            return response()->json([
+                    'message' => 'status Added',
+                    'status' => $status
+                ]);
+        }
     }
 
     /**
@@ -46,7 +61,8 @@ class StatusController extends Controller
      */
     public function show(Status $status)
     {
-        //
+        $status=$this->statusRepository->view($id);
+        return response()->json($status);
     }
 
     /**

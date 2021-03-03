@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Admin;
 use App\Response;
 
@@ -14,7 +15,6 @@ class AdminRepository implements AdminRepositoryInterface
     public function view($id)
     {
         return Admin::where('id', $id)->first();
-
     }
 
     public function delete($id)
@@ -105,5 +105,4 @@ class AdminRepository implements AdminRepositoryInterface
     public function createNewToken($token)
     {
     }
-    
 }

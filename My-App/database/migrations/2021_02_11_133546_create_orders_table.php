@@ -25,6 +25,10 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+        Schema::table('orders', function (Blueprint $table) {
+            $table->unsignedBigInteger('status_id')->index()->default('1');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+        });
     }
 
     /**

@@ -11,6 +11,7 @@ class Order extends Model
         'shipped_date',
         'order_date',
         'user_id',
+        'status_id',
         'address'
     ];
     //

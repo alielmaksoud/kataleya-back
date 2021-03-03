@@ -4,12 +4,11 @@
 
 namespace App\Repositories;
 
-interface CategoryRepositoryInterface
+interface StatusRepositoryInterface
 {
     public function display();
-    public function createCategory($request);
+    public function create($request);
     public function update($request, $id);
     public function view($id);
     public function delete($id);
-    public function displayItems($itemId);
 }

@@ -32,7 +32,7 @@ Route::get('category/{itemId}', 'CategoryController@displayItems');
 // /////messages branch
 
 Route::post('messages', 'MessageController@store');
-
+Route::post('/testimonial', 'TestimonialController@store');
 // Route::put('messages/{id}', 'MessageController@update');
 
 
@@ -84,11 +84,12 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::delete('/order/{id}', 'OrderController@destroy');
     Route::post('/status', 'StatusController@store');
     Route::get('/status/{id}', 'StatusController@show');
+    Route::get('/status', 'StatusController@index');
     //////////////
     Route::get('messages', 'MessageController@index');
     Route::get('messages/{id}', 'MessageController@show');
     //////
-    Route::post('/testimonial', 'TestimonialController@store');
+    
     Route::get('/testimonial', 'TestimonialController@index');
     Route::get('/testimonial/{id}', 'TestimonialController@show');
     Route::delete('/testimonial/{id}', 'TestimonialController@destroy');

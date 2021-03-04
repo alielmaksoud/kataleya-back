@@ -8,7 +8,7 @@ class StatusRepository implements StatusRepositoryInterface
 {
     public function display()
     {
-        return $statuses = Status::all();
+        $statuses = Status::all();
     }
  
     public function view($id)

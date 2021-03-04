@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Status;
 use Illuminate\Http\Request;
+use App\Repositories\StatusRepository;
+use JWTAuth;
 
 class StatusController extends Controller
 {
@@ -20,7 +22,8 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $status=$this->statusRepository->display();
+        return response()->json($status);
     }
 
     /**

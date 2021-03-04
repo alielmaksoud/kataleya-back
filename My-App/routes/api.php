@@ -33,7 +33,7 @@ Route::get('category/{id}', 'CategoryController@show');
 Route::post('messages', 'MessageController@store');
 
 // Route::put('messages/{id}', 'MessageController@update');
-
+Route::get('/homeitem', 'GetItemController@getHomeItem');
 Route::get('/item', 'GetItemController@index');
 Route::get('/item/{id}', 'GetItemController@show');
 

@@ -26,10 +26,7 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'description' => 'required|max:500',
-            'price'=>'required|numeric',
-            'offer_price'=>'numeric',
             'image'=>'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'price'=>'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'category_id'=>'required|integer',
             'is_offer'=>'boolean',
             'is_featured'=>'boolean'

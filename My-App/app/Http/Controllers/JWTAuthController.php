@@ -111,6 +111,26 @@ class JWTAuthController extends Controller
     }
 
     /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update(Request $request, $id)
+    {
+        /* $validator=$request->validated(); */
+
+
+       /*  if ($validator) { */
+            $user=$this->userRepository->update($request, $id);
+            
+
+            return response()->json(['status' => 200, 'user' => $user]);
+        /* } */
+    }
+
+    /**
      * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse

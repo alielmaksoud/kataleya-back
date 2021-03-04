@@ -21,23 +21,19 @@ use Illuminate\Support\Facades\Route;
     return $request->admin();
 }); */
 
-///////categories
-
+//////// admin
 
 
 ///////categories
 Route::get('category', 'GetCategoryController@index');
 Route::get('category/{id}', 'CategoryController@show');
-Route::get('category/{itemId}', 'CategoryController@displayItems');
+
 // /////messages branch
 
 Route::post('messages', 'MessageController@store');
 Route::post('/testimonial', 'TestimonialController@store');
 // Route::put('messages/{id}', 'MessageController@update');
 
-
-// Route::get('/testimonial', 'TestimonialController@index');
-// Route::get('/testimonial/{id}', 'TestimonialController@show');
 Route::get('/item', 'GetItemController@index');
 Route::get('/item/{id}', 'GetItemController@show');
 
@@ -58,11 +54,11 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     ////user
     Route::get('/user/show', 'AdminController@indexuser');
     Route::delete('/user/{id}', 'AdminController@destroyuser');
-    Route::post('/user/{id}', 'AdminController@updateuser');
+    Route::put('/user/{id}', 'AdminController@updateuser');
 
     ////////////////
-    Route::delete('/messages/{id}', 'MessageController@destroy');
-    Route::get('/message', 'MessageController@index');
+    Route::delete('messages/{id}', 'MessageController@destroy');
+
     //////////////
     // Route::get('/item', 'ItemController@index');
     Route::post('/item', 'ItemController@store');
@@ -121,7 +117,6 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::get('/order', 'OrderController@index');
     Route::post('/order', 'OrderController@store');
     Route::get('/order/{id}', 'OrderController@show');
-    Route::get('/orders/{id}', 'JWTAuthController@displayOrder');
     
     ///////////////
     Route::get('/orderItem', 'OrderItemController@index');
@@ -140,8 +135,4 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::get('/cartItem/{id}', 'CartController@show');
     //  Route::put('/cartItem/{id}', 'CartController@update');
     Route::delete('/cartItem/{id}', 'CartController@destroy');
-    ///
-    // Route::post('/testimonial', 'TestimonialController@store');
-    // Route::put('/testimonial/{id}', 'TestimonialController@update');
-    // Route::delete('/testimonial/{id}', 'TestimonialController@destroy');
 });

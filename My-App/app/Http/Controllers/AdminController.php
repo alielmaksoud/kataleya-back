@@ -72,7 +72,7 @@ class AdminController extends Controller
         $request->validate([
 
             'password' => 'min:6',
-            'phone' => ['required', 'regex:/^((961[\s-]*(3|7(0|1)))|([\s+]961[\s-]*(3|7(0|1)))|(03|7(0|1)))[\s+-]*\d{6}$/u'],
+            'phone' => ['required', 'regex:/^((961[\s+-]*(3|7(0|1)))|(03|7(0|1))|(81|7(6|8))|(79))[\s+-]*\d{6}$/u'],
          
         ]);
 
@@ -172,17 +172,17 @@ class AdminController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function update(AdminRegisterRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $validator=$request->validated();
+        /* $validator=$request->validated(); */
 
 
-        if ($validator) {
+       /*  if ($validator) { */
             $admin=$this->adminRepository->update($request, $id);
             
 
             return response()->json(['status' => 200, 'admin' => $admin]);
-        }
+        /* } */
     }
 
 

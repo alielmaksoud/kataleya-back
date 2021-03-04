@@ -30,7 +30,7 @@ class AdminRepository implements AdminRepositoryInterface
         $admin = Admin::where('id', $id)->first();
         $admin->name = $data['name'];
         $admin->email = $data['email'];
-        $admin->password = $data['password'];
+        $admin->password = bcrypt($data['password']);
         $admin->phone =$data['phone'];
         $admin->save();
     }

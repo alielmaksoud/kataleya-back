@@ -69,6 +69,7 @@ class GetItemController extends Controller
         ],500);
     }
 
+
     public function getHomeItem(){
       $items = Item::join('categories','categories.id', 'items.category_id')
       ->select('items.*', 'categories.category_name')
@@ -79,4 +80,5 @@ class GetItemController extends Controller
         'data'=> $data
     ],200);
     }
+
 }

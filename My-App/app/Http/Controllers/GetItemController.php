@@ -68,15 +68,17 @@ class GetItemController extends Controller
             'item'=>'item could not be found' 
         ],500);
     }
+
+
     public function getHomeItem(){
-        $items = Item::join('categories','categories.id', 'items.category_id')
-        ->select('items.*', 'categories.category_name')
-        ->with('itemAttributes')->inRandomOrder()->limit(5)->get();
-        $rate = UsdRate::Where('id', '1')->get('rate');
-        $data = [$items, $rate];
-        return response()->json([
-          'data'=> $data
-      ],200);
-      }
-    
+      $items = Item::join('categories','categories.id', 'items.category_id')
+      ->select('items.*', 'categories.category_name')
+      ->with('itemAttributes')->inRandomOrder()->limit(5)->get();
+      $rate = UsdRate::Where('id', '1')->get('rate');
+      $data = [$items, $rate];
+      return response()->json([
+        'data'=> $data
+    ],200);
+    }
+
 }

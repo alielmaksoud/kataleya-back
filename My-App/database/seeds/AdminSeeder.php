@@ -17,9 +17,10 @@ class AdminSeeder extends Seeder
                 'updated_at'=>now(),
                 'name'=>'Mohammad Hassan',
                 'email'=>'kataleya.parfum@gmail.com',
-                'phone'=>'',
+                'phone'=>'70123123',
                 'password'=>bcrypt('admin123123'),
             ]);
         }
     }
 }
+

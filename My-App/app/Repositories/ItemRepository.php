@@ -41,8 +41,8 @@ class ItemRepository implements ItemRepositoryInterface
                 'name'=>$data['name'],
                 'description' => $data['description'],
                 'image'=>$path,
-                // 'is_offer'=>$data['is_offer'],
-                // 'is_featured'=>$data['is_featured'],
+                 'is_offer'=>$data['is_offer'],
+                 'is_featured'=>$data['is_featured'],
                 'category_id'=>$data['category_id'],
             ]);
             

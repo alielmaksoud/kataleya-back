@@ -66,6 +66,9 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::delete('/item/{id}', 'ItemController@destroy');
 
 
+    Route::get('/testimonial', 'TestimonialController@index');
+
+
     ////////////
     
     Route::post('category', 'CategoryController@store');

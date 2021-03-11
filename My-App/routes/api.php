@@ -118,6 +118,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::get('profile', 'JWTAuthController@profile');
     Route::delete('/{id}', 'JWTAuthController@destroy');
     Route::put('/{id}', 'JWTAuthController@update');
+    Route::post('/verify','JWTAuthController@verifytokens');
     
     
     ///////////////
@@ -140,7 +141,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
      Route::get('/cartItem', 'CartItemController@index');
      Route::post('/cartItem', 'CartController@store');
      Route::get('/cartItem/{id}', 'CartController@show');
-    //  Route::put('/cartItem/{id}', 'CartController@update');
+     Route::put('/cartItem/{id}', 'CartController@update');
      Route::delete('/cartItem/{id}', 'CartController@destroy');
 
 });

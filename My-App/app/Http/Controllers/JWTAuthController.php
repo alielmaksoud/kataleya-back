@@ -25,6 +25,13 @@ class JWTAuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
+    public function verifytokens()
+    {
+        return response()->json(['message' => 'Verified']);
+    }
+
+
+
    /**
      * Display a listing of the resource.
      *
@@ -119,15 +126,34 @@ class JWTAuthController extends Controller
     */
     public function update(Request $request, $id)
     {
-        /* $validator=$request->validated(); */
+        $request->validate([
 
+            'password' => 'min:6',
+            'phone' => ['required', 'regex:/^((961[\s+-]*(3|7(0|1)))|(03|7(0|1))|(81|7(6|8))|(79))[\s+-]*\d{6}$/u'],
+         
+        ]);
 
-       /*  if ($validator) { */
-            $user=$this->userRepository->update($request, $id);
-            
-
-            return response()->json(['status' => 200, 'user' => $user]);
-        /* } */
+        $data = $request->all();
+        
+        $user = User::where('id', $id)->first();
+        if (!empty($request['password']) && $request['password'] !== "undefined") {
+            $user->password = $request['password'];
+        }
+        if (!empty($request['name']) && $request['name'] !== "undefined") {
+            $user->name = $request['name'];
+        }
+        if (!empty($request['email']) && $request['email'] !== "undefined") {
+            $user->email = $request['email'];
+        }
+        if (!empty($request['phone']) && $request['phone'] !== "undefined") {
+            $user->phone = $request['phone'];
+        }
+        $user->save();
+        
+        return response()->json([
+            'status' => 200,
+            'admin'  => $user
+        ]);
     }
 
     /**

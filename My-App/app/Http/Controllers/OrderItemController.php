@@ -18,7 +18,7 @@ class OrderItemController extends Controller
     public function __construct(OrderItemRepository $orderItemRepository)
     {
         $this->orderItemRepository =$orderItemRepository;
-        config()->set( 'auth.defaults.guard', 'api' );
+        config()->set('auth.defaults.guard', 'api');
         $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**
@@ -48,18 +48,14 @@ class OrderItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderItemRequest $request)
+    public function store(Request $request)
     {
-        $validator=$request->validated();
+        $orderItem=$this->orderItemRepository->create($request);
 
-        if ($validator) {
-            $orderItem=$this->orderItemRepository->create($request);
-
-            return response()->json([
-                    'message' => 'Category Added',
+        return response()->json([
+                    'message' => 'order Added',
                     'category' => $orderItem
                 ]);
-        }
     }
 
     /**

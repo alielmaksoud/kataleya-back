@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\OrderItem;
+use App\CartItem;
 
 class OrderItemRepository implements OrderItemRepositoryInterface
 {
@@ -14,21 +15,23 @@ class OrderItemRepository implements OrderItemRepositoryInterface
     public function view($id)
     {
         return OrderItem::where('id', $id)->first();
-
     }
  
     public function create($request)
     {
-        $data = $request->all();
-            
-            
-        $category = OrderItem::create([
-                // 'item'=>$data['item'],
+        $data=$request->all();
+        $items=CartItem::all();
+        foreach ($items as $item) {
+            OrderItem::create([
                 'quantity' => $data['quantity'],
+                "image"=>$item['image'],
+                'name'=>$item['name'],
+                'bottle_size'=>$item['bottle_size'],
                 'price'=>$data['price'],
-                'item_id' => $data['item_id'],
-                'order_id'=>$data['order_id'],
+                'item_id' => $item['item_id'],
+                'order_id'=>$item['cart_id'],
             ]);
+        }
     }
     public function update($request, $id)
     {
@@ -44,6 +47,5 @@ class OrderItemRepository implements OrderItemRepositoryInterface
     public function delete($id)
     {
         OrderItem::where('id', $id)->delete();
-
     }
 }

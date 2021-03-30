@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->Float('overall_price');
             $table->date('shipped_date');
             $table->date('order_date');
-            $table->string('address');
             $table->timestamps();
         });
         Schema::table('orders', function (Blueprint $table) {

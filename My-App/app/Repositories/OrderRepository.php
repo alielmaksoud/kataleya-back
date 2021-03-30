@@ -3,15 +3,21 @@
 namespace App\Repositories;
 
 use App\Order;
+use DB;
 
 class OrderRepository implements OrderRepositoryInterface
 {
+    public function retrieve($id)
+    {
+        $users = DB::table('users')->select('name', 'email', 'phone', 'address')->where('id', $id)->get();
+        return $users;
+    }
     public function display()
     {
-        $id = auth()->user()->id;
-        return $orders = Order::where('user_id', $id)->get();
+        // $id = auth()->user()->id;
+        return $orders = Order::all();
     }
- 
+    
     public function view($id)
     {
         return Order::where('id', $id)->first();
@@ -52,7 +58,6 @@ class OrderRepository implements OrderRepositoryInterface
         $order->order_date = $data['order_date'];
         $order->shipped_date=$data['shipped_date'];
         $order->user_id=$Uid;
-        $order->address=$data['address'];
         $order->save();
     }
     public function delete($id)

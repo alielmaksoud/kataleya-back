@@ -17,7 +17,7 @@ class MessageRepository implements MessageRepositoryInterface
         // return response()->json([
         //     'message' => 'empty',
         // ], 404);
-        return $testimonial = Message::all();
+        return $message = Message::all();
     }
  
     public function view($id)

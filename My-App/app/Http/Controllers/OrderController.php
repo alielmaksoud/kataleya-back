@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository =$orderRepository;
-        config()->set('auth.defaults.guard', 'api');
+        //config()->set('auth.defaults.guard', 'api');
         //  $this->user = JWTAuth::parseToken()->authenticate();
     }
     /**
@@ -113,5 +113,10 @@ class OrderController extends Controller
         return response()->json([
             'message' => 'order deleted'
         ]);
+    }
+    public function retrieve($id)
+    {
+        $users=$this->orderRepository->retrieve($id);
+        return response()->json($users);
     }
 }

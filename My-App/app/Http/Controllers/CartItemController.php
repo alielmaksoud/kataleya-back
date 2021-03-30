@@ -18,9 +18,10 @@ class CartItemController extends Controller
     public function __construct(CartItemRepository $cartItemRepository)
     {
         $this->cartItemRepository =$cartItemRepository;
-        config()->set( 'auth.defaults.guard', 'api' );
+        config()->set('auth.defaults.guard', 'api');
         $this->user = JWTAuth::parseToken()->authenticate();
     }
+   
     /**
      * Display a listing of the resource.
      *
@@ -56,8 +57,8 @@ class CartItemController extends Controller
             $cartItem=$this->cartItemRepository->create($request);
 
             return response()->json([
-                    'message' => 'Category Added',
-                    'category' => $cartItem
+                    'message' => 'Item Added',
+                    'item' => $cartItem
                 ]);
         }
     }
@@ -116,6 +117,13 @@ class CartItemController extends Controller
         $cartItem=$this->cartItemRepository->delete($id);
         return response()->json([
             'message' => 'Cart Item deleted'
+        ]);
+    }
+    public function delete()
+    {
+        $item=$this->itemRepository->erase();
+        return response()->json([
+            'message' => ' Items deleted'
         ]);
     }
 }

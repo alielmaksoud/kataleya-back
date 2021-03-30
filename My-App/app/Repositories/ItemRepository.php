@@ -8,13 +8,11 @@ use App\Item;
 use App\UsdRate;
 use App\ItemAttributes;
 
-
 class ItemRepository implements ItemRepositoryInterface
 {
     public function display()
     {
-
-        $items = Item::join('categories','categories.id', 'items.category_id')
+        $items = Item::join('categories', 'categories.id', 'items.category_id')
         ->select('items.*', 'categories.category_name')
         ->with('itemAttributes')
         ->get();
@@ -105,14 +103,13 @@ class ItemRepository implements ItemRepositoryInterface
                     'bottle_size' => (${"attr_".$i}['bottle_size_'.$i]),
                     'item_id' => $item_id,
                 ]);
-               
             }
         
             return response()->json([
                 'message' => 'Item and attributes Added',
                 'item' => $item
             ]);
-        }else {
+        } else {
             return response()->json(['status' => 500, 'error' => "couldnt upload image"]);
         }
     }
@@ -121,33 +118,32 @@ class ItemRepository implements ItemRepositoryInterface
         $data = $request->all();
         $image = $request->file('image');
         $path = Storage::disk('public')->put('images', $image);
-        if($path){
+        if ($path) {
+            $item =Item::where('id', $id)->first();
+            $item->name = $data['name'];
+            $item->description = $data['description'];
+            $item->image = $path;
+            $item->is_offer = $data['is_offer'];
+            $item->is_featured = $data['is_featured'];
+            $item->category_id = $data['category_id'];
+            $item->save();
 
-        $item =Item::where('id', $id)->first();
-        $item->name = $data['name'];
-        $item->description = $data['description'];
-        $item->image = $path;
-        $item->is_offer = $data['is_offer'];
-        $item->is_featured = $data['is_featured'];
-        $item->category_id = $data['category_id'];
-        $item->save();
 
-
-        $keys = array_keys($data);
-        $unWantedKeys = ['name', 'description', 'image', 'is_offer', 'is_featured', 'category_id','_method'];
-        foreach ($keys as $element) {
-            if (in_array($element, $unWantedKeys)) {
-                unset($data[$element]);
+            $keys = array_keys($data);
+            $unWantedKeys = ['name', 'description', 'image', 'is_offer', 'is_featured', 'category_id','_method'];
+            foreach ($keys as $element) {
+                if (in_array($element, $unWantedKeys)) {
+                    unset($data[$element]);
+                }
             }
-        }
-        $numAttributes = count($data) / 3;
+            $numAttributes = count($data) / 3;
         
-        for ($i = 0; $i < $numAttributes; $i++) {
-            ${"attr_".$i} = [];
-        }
+            for ($i = 0; $i < $numAttributes; $i++) {
+                ${"attr_".$i} = [];
+            }
 
-        foreach ($data as $key => $value) {
-            switch ($key) {
+            foreach ($data as $key => $value) {
+                switch ($key) {
                 case (preg_match('/_0.*/', $key) ? true : false):
                     $attr_0 += array($key=>$value);
                     break;
@@ -182,13 +178,13 @@ class ItemRepository implements ItemRepositoryInterface
                     $attr_10 += array($key=>$value);
                     break;
             }
-        }
+            }
        
        
 
 
             $itemAttributes = ItemAttributes::where('item_id', $id)->get();
-            if($numAttributes > count($itemAttributes)){
+            if ($numAttributes > count($itemAttributes)) {
                 for ($i = 0; $i < count($itemAttributes); $i++) {
                     $itemAttributes[$i]->price = (${"attr_".$i}['price_'.$i]);
                     $itemAttributes[$i]->offer_price =(${"attr_".$i}['offer_price_'.$i]);
@@ -197,34 +193,26 @@ class ItemRepository implements ItemRepositoryInterface
                     $item->save();
                 }
                 for ($i = count($itemAttributes); $i < $numAttributes; $i++) {
-              
-        
                     $itemAttributes = ItemAttributes::create([
                         'price' => (${"attr_".$i}['price_'.$i]),
                         'offer_price' => (${"attr_".$i}['offer_price_'.$i]),
                         'bottle_size' => (${"attr_".$i}['bottle_size_'.$i]),
                         'item_id' => $id,
                     ]);
-                 }
-
-            }else{
+                }
+            } else {
                 for ($i = 0; $i < $numAttributes; $i++) {
-        
                     $itemAttributes = ItemAttributes::create([
                         'price' => (${"attr_".$i}['price_'.$i]),
                         'offer_price' => (${"attr_".$i}['offer_price_'.$i]),
                         'bottle_size' => (${"attr_".$i}['bottle_size_'.$i]),
                         'item_id' => $id,
                     ]);
-                   
-                 }
+                }
             }
             
-         return response()->json(['status' => 200, 'item' => $item]);
-
-        }
-        else {
-
+            return response()->json(['status' => 200, 'item' => $item]);
+        } else {
             return response()->json(['staus' => 500, 'error' => "couldnt upload image"]);
         }
     }

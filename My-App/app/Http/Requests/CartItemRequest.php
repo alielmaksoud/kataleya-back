@@ -24,8 +24,8 @@ class CartItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_added'=>'required|date_format:Y/m/d',
-            'quantity' => 'required|integer|min:1|max:100',
+            
+            'quantity' => '|integer|min:1|max:100',
             'cart_id'=>'required|integer',
             'item_id'=>'required|integer',
 
@@ -35,13 +35,10 @@ class CartItemRequest extends FormRequest
     {
         return [
 
-            'quantity.required' => 'Quantity is required!',
-            'quantity.min:1'=>"the quantity shouldn't be less than 1",
+           
             'quantity.max:100'=>"Exceeded max quantity allowed",
-
-            'date_added.required' => 'Date is required!',
-            'date_added.date_format:Y/m/d' => 'Date not in correct format',
-
+            'quantity.min:1'=>"Exceeded minimum quantity allowed",
+            
             'cart_id.required'=>'Cart id is required',
             'cart_id.integer'=>'Cart id should be an integer',
 

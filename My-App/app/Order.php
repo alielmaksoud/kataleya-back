@@ -12,7 +12,7 @@ class Order extends Model
         'order_date',
         'user_id',
         'status_id',
-        'address'
+        
     ];
     //
     public function user()

@@ -65,7 +65,7 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admin','jwt.aut
     Route::put('/item/{id}', 'ItemController@update');
     Route::delete('/item/{id}', 'ItemController@destroy');
 
-
+    Route::get('/retrieve/{id}', 'OrderController@retrieve');
     Route::get('/testimonial', 'TestimonialController@index');
 
 
@@ -114,6 +114,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
     Route::get('profile', 'JWTAuthController@profile');
     Route::delete('/{id}', 'JWTAuthController@destroy');
     Route::put('/{id}', 'JWTAuthController@update');
+    Route::post('/verify', 'JWTAuthController@verifytokens');
     
     
     ///////////////
@@ -134,8 +135,9 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:api','jwt.auth']
      
     ///////////////
     Route::get('/cartItem', 'CartItemController@index');
-    Route::post('/cartItem', 'CartController@store');
-    Route::get('/cartItem/{id}', 'CartController@show');
-    //  Route::put('/cartItem/{id}', 'CartController@update');
-    Route::delete('/cartItem/{id}', 'CartController@destroy');
+    Route::post('/cartItem', 'CartItemController@store');
+    Route::get('/cartItem/{id}', 'CartItemController@show');
+    Route::put('/cartItem/{id}', 'CartItemController@update');
+    Route::delete('/cartItem/{id}', 'CartItemController@destroy');
+    Route::delete('/cartitems/delete', 'CartItemController@delete');
 });

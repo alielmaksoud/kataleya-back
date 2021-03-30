@@ -15,8 +15,11 @@ class CreateCartItemsTable extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('quantity');
-            $table->date('date_added');
+            $table->bigInteger('quantity')->default(1);
+            $table->Float('price');
+            $table->Float('bottle_size');
+            $table->string('name');
+            $table->string('image');
             $table->timestamps();
         });
         Schema::table('cart_items', function (Blueprint $table) {

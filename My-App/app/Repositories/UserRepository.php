@@ -17,7 +17,6 @@ class UserRepository implements UserRepositoryInterface
     public function view($id)
     {
         return User::where('id', $id)->first();
-
     }
 
     public function delete($id)
@@ -35,6 +34,7 @@ class UserRepository implements UserRepositoryInterface
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
         $user->phone = $data['phone'];
+        $user->phone = $data['address'];
         $user->save();
     }
 
@@ -49,6 +49,7 @@ class UserRepository implements UserRepositoryInterface
         'email'=>$data['email'],
         'password'=>bcrypt($data['password']),
         'phone'=>$data['phone'],
+        'address'=>$data['address'],
          ]);
          
         if ($user) {

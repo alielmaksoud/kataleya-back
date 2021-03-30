@@ -20,7 +20,6 @@ class ItemController extends Controller
         config()->set('auth.defaults.guard', 'admin');
         $this->itemRepository =$itemRepository;
         $this->user = JWTAuth::parseToken()->authenticate();
-
     }
     /**
      * Display a listing of the resource.
@@ -55,8 +54,8 @@ class ItemController extends Controller
 
         // if ($validator) {
 
-            $item=$this->itemRepository->create($request);
-            return $item;
+        $item=$this->itemRepository->create($request);
+        return $item;
             
         // }
     }
@@ -93,13 +92,10 @@ class ItemController extends Controller
      */
     public function update(ItemRequest $request, $id)
     {
-
-
-            $item=$this->itemRepository->update($request, $id);
+        $item=$this->itemRepository->update($request, $id);
         
 
-            return response()->json(['status' => 200, 'item' => $item]);
-       
+        return response()->json(['status' => 200, 'item' => $item]);
     }
 
     /**
@@ -115,6 +111,4 @@ class ItemController extends Controller
             'message' => ' Item deleted'
         ]);
     }
-
-  
 }
